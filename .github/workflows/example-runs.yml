@@ -25,6 +25,7 @@ jobs:
         with:
           github_token: ${{ github.token }}
           repo_path: actions/runner
+          release_namespace: 'super-release'
 
       - name: print out latest release tag
         run: echo "The latest release tag is $TAG"

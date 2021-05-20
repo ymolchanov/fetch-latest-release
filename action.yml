@@ -17,9 +17,12 @@ inputs:
   repo_path:
     description: Provide a "owner/repo" string for fetching from a different repo.
     required: false
+  release_namespace:
+    description: super-namespace/0.2.2 <- super_namespace is a namespace.
+    required: true
 
 outputs:
-  url: 
+  url:
     description: The HTTP URL for this release
   assets_url:
     description: The REST API HTTP URL for this release's assets
@@ -53,4 +56,3 @@ outputs:
     description: ''
   author_site_admin:
     description: Whether or not this user is a site administrator.
-  
