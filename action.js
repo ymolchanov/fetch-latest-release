@@ -13,6 +13,7 @@ const customRepo = (repoPath) => {
 }
 
 const repoInput = core.getInput('repo_path')
+const releaseNamespace = core.getInput('release_namespace')
 
 const [owner, repo] = repoInput
   ? customRepo(repoInput)
@@ -22,16 +23,25 @@ const octokit = new github.GitHub(
   core.getInput('github_token', { required: true })
 )
 
+async function getLatestReleaseWith(releaseNamespace) {
+  const releaseList = await octokit.repos.listReleases({
+    owner,
+    repo,
+  })
+
+  return releaseList.find((release) =>
+    release.name.startsWith(releaseNamespace)
+  )
+}
+
 async function run() {
   let latestRelease
 
   core.info(`Fetching the latest release for \`${owner}/${repo}\``)
 
   try {
-    latestRelease = await octokit.repos.getLatestRelease({
-      owner,
-      repo,
-    })
+    // ??? startsWith or startedWith
+    latestRelease = getLatestReleaseWith(releaseNamespace)
   } catch (error) {
     core.info('Could not fetch the latest release. Have you made one yet?')
     core.setFailed(error)
