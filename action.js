@@ -38,6 +38,7 @@ async function run() {
   let latestRelease
 
   core.info(`Fetching the latest release for \`${owner}/${repo}\``)
+  core.info('Test this')
 
   try {
     // ??? startsWith or startedWith
